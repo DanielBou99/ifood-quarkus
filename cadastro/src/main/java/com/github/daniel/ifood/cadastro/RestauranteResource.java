@@ -105,15 +105,6 @@ public class RestauranteResource {
         if (restauranteOp.isEmpty()) {
             throw new NotFoundException("Restaurante não existe");
         }
-        //        //Utilizando dto, recebi detached entity passed to persist:
-        //        Prato prato = new Prato();
-        //        prato.nome = dto.nome;
-        //        prato.descricao = dto.descricao;
-        //
-        //        prato.preco = dto.preco;
-        //        prato.restaurante = restauranteOp.get();
-        //        prato.persist();
-
         Prato prato = pratoMapper.toPrato(dto);
         prato.restaurante = restauranteOp.get();
         prato.persist();
@@ -129,8 +120,7 @@ public class RestauranteResource {
         if (restauranteOp.isEmpty()) {
             throw new NotFoundException("Restaurante não existe");
         }
-
-        //No nosso caso, id do prato vai ser único, independente do restaurante...
+        
         Optional<Prato> pratoOp = Prato.findByIdOptional(id);
 
         if (pratoOp.isEmpty()) {
