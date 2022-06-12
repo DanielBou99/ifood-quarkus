@@ -20,5 +20,5 @@ mvn quarkus:add-extension -Dextensions="smallrye-opentracing"
 
 - Subir imagens com docker-compose
 
-docker-compose up
+docker-compose up  
 
