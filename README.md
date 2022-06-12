@@ -9,6 +9,8 @@ Versão do docker local utilizado: 17.06.2-ce.
 Swagger: http://localhost:8080/swagger-ui/  
 Keycloak: http://localhost:8180/auth/  
 Jaeger: http://localhost:16686/search  
+Prometeus: http://localhost:9090/graph  
+Grafana: http://localhost:3000/login  
 
 ## Projeto Cadastro
 
@@ -17,8 +19,11 @@ Jaeger: http://localhost:16686/search
 mvn quarkus:add-extension -Dextensions="jdbc-postgres, orm-panache, resteasy-jsonb, openapi, hibernate-validator"  
 mvn quarkus:add-extension -Dextensions="jwt"  
 mvn quarkus:add-extension -Dextensions="smallrye-opentracing"  
+mvn quarkus:add-extension -Dextensions="metrics"  
 
 - Subir imagens com docker-compose
 
 docker-compose up  
 
+- Build do prometheus  
+docker build -f Dockerfile.prometheus -t prometheus-ifood .  
