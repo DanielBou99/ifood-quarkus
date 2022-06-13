@@ -20,6 +20,7 @@ mvn quarkus:add-extension -Dextensions="jdbc-postgres, orm-panache, resteasy-jso
 mvn quarkus:add-extension -Dextensions="jwt"  
 mvn quarkus:add-extension -Dextensions="smallrye-opentracing"  
 mvn quarkus:add-extension -Dextensions="metrics"  
+mvn quarkus:add-extension -Dextensions="flyway"  
 
 - Subir imagens com docker-compose
 
