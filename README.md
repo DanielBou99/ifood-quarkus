@@ -1,12 +1,13 @@
 # Quarkus - Projeto Ifood
 
-Esse é um projeto completo de Quarkus onde eu utilizei o README para fazer anotações interessantes que podem me ajudar no futuro.
+Esse é um projeto completo de Quarkus onde eu utilizei o README para fazer anotações interessantes que podem me ajudar no futuro.  
 **Esse projeto tem foco em aprender o framework Quarkus e não em utilizar as melhores práticas de desenvolvimento.**
 
 ## Informações úteis:
 
 Versão do docker local utilizado: 17.06.2-ce.  
-Swagger: http://localhost:8080/swagger-ui/  
+Swagger Projeto Cadastro: http://localhost:8080/swagger-ui/  
+Swagger Projeto Marketplace: http://localhost:8081/swagger-ui/  
 Keycloak: http://localhost:8180/auth/  
 Jaeger: http://localhost:16686/search  
 Prometeus: http://localhost:9090/graph  
@@ -20,7 +21,7 @@ mvn quarkus:add-extension -Dextensions="jdbc-postgres, orm-panache, resteasy-jso
 mvn quarkus:add-extension -Dextensions="jwt"  
 mvn quarkus:add-extension -Dextensions="smallrye-opentracing"  
 mvn quarkus:add-extension -Dextensions="metrics"  
-mvn quarkus:add-extension -Dextensions="flyway"  
+mvn quarkus:add-extension -Dextensions="flyway"    
 
 - Subir imagens com docker-compose
 
@@ -28,3 +29,10 @@ docker-compose up
 
 - Build do prometheus  
 docker build -f Dockerfile.prometheus -t prometheus-ifood .  
+
+## Projeto MarketPlace  
+
+- Adicionar dependências:  
+
+mvn quarkus:add-extension -Dextensions="resteasy-multiny,jdbc-postgres,flyway,pg-client"  
+mvn quarkus:add-extension -Dextensions="resteasy-jsonb, openapi"  
