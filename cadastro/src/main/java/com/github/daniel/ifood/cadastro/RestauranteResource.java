@@ -7,6 +7,8 @@ import java.util.stream.Stream;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -44,6 +46,8 @@ import org.eclipse.microprofile.openapi.annotations.security.OAuthFlows;
 import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
 
 @Path("/restaurantes")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -60,6 +64,10 @@ public class RestauranteResource {
 
     @Inject
     PratoMapper pratoMapper;
+    
+    @Inject
+    @Channel("restaurantes")
+    Emitter<String> emitter;
 
     @GET
     @Tag(name = "Restaurante")
@@ -79,6 +87,11 @@ public class RestauranteResource {
     public Response adicionar(@Valid AdicionarRestauranteDTO dto) {
         Restaurante restaurante = restauranteMapper.toRestaurante(dto);
         restaurante.persist();
+        
+        Jsonb create = JsonbBuilder.create();
+        String json = create.toJson(restaurante);
+        emitter.send(json);
+        
         return Response.status(Status.CREATED).build();
     }
     

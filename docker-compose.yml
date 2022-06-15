@@ -48,3 +48,13 @@ services:
       - "3000:3000"
     depends_on:
       - prometheus_ifood
+  artemis_ifood:
+    container_name: artemis_ifood
+    image: vromero/activemq-artemis:latest
+    environment:
+      ARTEMIS_USERNAME: admin
+      ARTEMIS_PASSWORD: admin
+    ports:
+      - "8161:8161"
+      - "61613:61613"
+      - "5672:5672"

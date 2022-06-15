@@ -12,6 +12,7 @@ Keycloak: http://localhost:8180/auth/
 Jaeger: http://localhost:16686/search  
 Prometeus: http://localhost:9090/graph  
 Grafana: http://localhost:3000/login  
+ActiveMQ: http://localhost:8161/ - http://localhost:8161/console
 
 ## Projeto Cadastro
 
@@ -21,7 +22,7 @@ mvn quarkus:add-extension -Dextensions="jdbc-postgres, orm-panache, resteasy-jso
 mvn quarkus:add-extension -Dextensions="jwt"  
 mvn quarkus:add-extension -Dextensions="smallrye-opentracing"  
 mvn quarkus:add-extension -Dextensions="metrics"  
-mvn quarkus:add-extension -Dextensions="flyway"    
+mvn quarkus:add-extension -Dextensions="flyway"  
 
 - Subir imagens com docker-compose
 
@@ -36,3 +37,4 @@ docker build -f Dockerfile.prometheus -t prometheus-ifood .
 
 mvn quarkus:add-extension -Dextensions="resteasy-multiny,jdbc-postgres,flyway,pg-client"  
 mvn quarkus:add-extension -Dextensions="resteasy-jsonb, openapi"  
+mvn quarkus:add-extension -Dextensions="amqp"  
