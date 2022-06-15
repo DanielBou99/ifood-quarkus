@@ -52,7 +52,7 @@ import org.eclipse.microprofile.reactive.messaging.Emitter;
 @Path("/restaurantes")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@RolesAllowed("proprietario")
+//@RolesAllowed("proprietario")
 @SecurityScheme(securitySchemeName = "ifood-oauth", 
 		type = SecuritySchemeType.OAUTH2, 
 		flows = @OAuthFlows(password = @OAuthFlow(tokenUrl = "http://localhost:8180/auth/realms/ifood/protocol/openid-connect/token")))
