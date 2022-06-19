@@ -12,7 +12,8 @@ Keycloak: http://localhost:8180/auth/
 Jaeger: http://localhost:16686/search  
 Prometeus: http://localhost:9090/graph  
 Grafana: http://localhost:3000/login  
-ActiveMQ: http://localhost:8161/ - http://localhost:8161/console
+ActiveMQ: http://localhost:8161/ - http://localhost:8161/console  
+Kafka: http://localhost:9000/  
 
 ## Projeto Cadastro
 
@@ -38,3 +39,8 @@ docker build -f Dockerfile.prometheus -t prometheus-ifood .
 mvn quarkus:add-extension -Dextensions="resteasy-multiny,jdbc-postgres,flyway,pg-client"  
 mvn quarkus:add-extension -Dextensions="resteasy-jsonb, openapi"  
 mvn quarkus:add-extension -Dextensions="amqp"  
+mvn quarkus:add-extension -Dextensions="kafka"  
+
+## Projeto Pedido  
+
+mvn quarkus:add-extension -Dextensions="resteasy-jsonb, openapi, mongodb-panache"  
