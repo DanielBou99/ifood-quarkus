@@ -109,12 +109,23 @@ services:
       xpack.monitoring.enabled: "false"
     volumes:
       - ./esdata:/usr/share/elasticsearch/data
-
   kibana:
+    container_name: kibana
     image: docker.elastic.co/kibana/kibana:7.7.0
     ports:
       - "5601:5601"
     environment:
       - ELASTICSEARCH_HOSTS=http://es-container:9200
     depends_on:
-      - elasticsearch
+      - elastic
+  logstash:
+    container_name: logstash
+    image: docker.elastic.co/logstash/logstash-oss:6.8.2
+    volumes:
+      - source: ./pipelines
+        target: /usr/share/logstash/pipeline
+        type: bind
+    ports:
+      - "127.0.0.1:12201:12201/udp"
+    depends_on:
+      - elastic

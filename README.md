@@ -48,3 +48,4 @@ mvn quarkus:add-extension -Dextensions="kafka"
 
 mvn quarkus:add-extension -Dextensions="resteasy-jsonb, openapi, mongodb-panache"  
 mvn quarkus:add-extension -Dextensions="kafka"  
+mvn quarkus:add-extension -Dextensions="gelf"  
