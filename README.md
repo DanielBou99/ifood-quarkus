@@ -5,9 +5,10 @@ Esse é um projeto completo de Quarkus onde eu utilizei o README para fazer anot
 
 ## Informações úteis:
 
-Versão do docker local utilizado: 17.06.2-ce.  
+Versão do docker local utilizado: 20.10.16.
 Swagger Projeto Cadastro: http://localhost:8080/swagger-ui/  
 Swagger Projeto Marketplace: http://localhost:8081/swagger-ui/  
+Swagger Projeto Pedido: http://localhost:8082/swagger-ui/  
 Keycloak: http://localhost:8180/auth/  
 Jaeger: http://localhost:16686/search  
 Prometeus: http://localhost:9090/graph  
