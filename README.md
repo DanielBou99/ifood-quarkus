@@ -14,6 +14,8 @@ Prometeus: http://localhost:9090/graph
 Grafana: http://localhost:3000/login  
 ActiveMQ: http://localhost:8161/ - http://localhost:8161/console  
 Kafka: http://localhost:9000/  
+Kibana: http://localhost:5601/app/kibana/  
+ElasticSearch: http://localhost:9200/  
 
 ## Projeto Cadastro
 
