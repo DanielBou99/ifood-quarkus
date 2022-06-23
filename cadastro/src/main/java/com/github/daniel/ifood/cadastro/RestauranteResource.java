@@ -72,7 +72,7 @@ public class RestauranteResource {
     
     @Inject
     @Channel("restaurantes")
-    Emitter<String> emitter;
+    Emitter<Restaurante> emitter;
     
     @Inject
     JsonWebToken jwt;
@@ -101,9 +101,7 @@ public class RestauranteResource {
         restaurante.proprietario = sub;
         restaurante.persist();
         
-        Jsonb create = JsonbBuilder.create();
-        String json = create.toJson(restaurante);
-        emitter.send(json);
+        emitter.send(restaurante);
         
         return Response.status(Status.CREATED).build();
     }
