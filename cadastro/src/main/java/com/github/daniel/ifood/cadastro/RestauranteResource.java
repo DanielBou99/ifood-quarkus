@@ -34,6 +34,9 @@ import com.github.daniel.ifood.cadastro.dto.RestauranteDTO;
 import com.github.daniel.ifood.cadastro.dto.RestauranteMapper;
 import com.github.daniel.ifood.cadastro.infra.ConstraintViolationResponse;
 
+import org.eclipse.microprofile.jwt.Claim;
+import org.eclipse.microprofile.jwt.Claims;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.SimplyTimed;
 import org.eclipse.microprofile.metrics.annotation.Timed;
@@ -49,10 +52,12 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 
+import io.quarkus.security.ForbiddenException;
+
 @Path("/restaurantes")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-//@RolesAllowed("proprietario")
+@RolesAllowed("proprietario")
 @SecurityScheme(securitySchemeName = "ifood-oauth", 
 		type = SecuritySchemeType.OAUTH2, 
 		flows = @OAuthFlows(password = @OAuthFlow(tokenUrl = "http://localhost:8180/auth/realms/ifood/protocol/openid-connect/token")))
@@ -68,6 +73,13 @@ public class RestauranteResource {
     @Inject
     @Channel("restaurantes")
     Emitter<String> emitter;
+    
+    @Inject
+    JsonWebToken jwt;
+    
+    @Inject
+    @Claim(standard = Claims.sub)
+    String sub;
 
     @GET
     @Tag(name = "Restaurante")
@@ -86,6 +98,7 @@ public class RestauranteResource {
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = ConstraintViolationResponse.class)))
     public Response adicionar(@Valid AdicionarRestauranteDTO dto) {
         Restaurante restaurante = restauranteMapper.toRestaurante(dto);
+        restaurante.proprietario = sub;
         restaurante.persist();
         
         Jsonb create = JsonbBuilder.create();
@@ -105,6 +118,10 @@ public class RestauranteResource {
             throw new NotFoundException();
         }
         Restaurante restaurante = restauranteOp.get();
+        
+        if (!restaurante.proprietario.equals(sub)) {
+        	throw new ForbiddenException();
+        }
 
         restauranteMapper.toRestaurante(dto, restaurante);
 
